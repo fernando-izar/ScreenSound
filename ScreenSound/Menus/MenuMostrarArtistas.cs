@@ -1,15 +1,16 @@
 ﻿using ScreenSound.Modelos;
+using ScreenSound.Banco;
 
 namespace ScreenSound.Menus;
 
 internal class MenuMostrarArtistas : Menu
 {
-    public override void Executar(Dictionary<string, Artista> musicasRegistradas)
+    public override void Executar(DAL<Artista> artistaDAL)
     {
-        base.Executar(musicasRegistradas);
+        base.Executar(artistaDAL);
         ExibirTituloDaOpcao("Exibindo todos os artistas registradas na nossa aplicação");
 
-        foreach (string artista in musicasRegistradas.Keys)
+        foreach (var artista in artistaDAL.Listar())
         {
             Console.WriteLine($"Artista: {artista}");
         }
@@ -17,5 +18,7 @@ internal class MenuMostrarArtistas : Menu
         Console.WriteLine("\nDigite uma tecla para voltar ao menu principal");
         Console.ReadKey();
         Console.Clear();
+
     }
+    
 }
